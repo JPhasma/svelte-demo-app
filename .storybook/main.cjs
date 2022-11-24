@@ -1,3 +1,5 @@
+const { sveltePreprocess } = require('svelte-preprocess/dist/autoProcess');
+
 module.exports = {
 	stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
 	addons: [
@@ -10,7 +12,24 @@ module.exports = {
 		builder: '@storybook/builder-vite'
 	},
 	svelteOptions: {
-		preprocess: import('../svelte.config.js').preprocess
+		// preprocess: import('../svelte.config.js').preprocess
+		// configures TS for Storybook
+		preprocess: sveltePreprocess({
+			babel: {
+				presets: [
+					[
+						'@babel/preset-env',
+						{
+							loose: true,
+							modules: false,
+							targets: {
+								esmodules: true
+							}
+						}
+					]
+				]
+			}
+		})
 	},
 	features: {
 		storyStoreV7: true
