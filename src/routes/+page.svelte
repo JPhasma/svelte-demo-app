@@ -1,7 +1,10 @@
-<script>
-	import Counter from './Counter.svelte';
+<script lang="ts">
+	// import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+
+	let val: number = 0;
+	$: calc = (val * 1.609344).toFixed(2);
 </script>
 
 <svelte:head>
@@ -18,14 +21,11 @@
 			</picture>
 		</span>
 
-		to your new<br />SvelteKit app
+		to the beginnings of BoatingCalculator
 	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
+	<h5>first example - a simple Miles to Kilometers converter</h5>
+	<input bind:value={val} placeholder="Miles to be calculated" />
+	<p>{val} miles is equal to {calc > 0 ? calc : 0} kilometres</p>
 </section>
 
 <style>
